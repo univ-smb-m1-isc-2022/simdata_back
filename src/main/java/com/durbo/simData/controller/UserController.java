@@ -1,6 +1,7 @@
 package com.durbo.simData.controller;
 
 import com.durbo.simData.model.User;
+import com.durbo.simData.service.TokenService;
 import com.durbo.simData.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,14 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TokenService tokenService;
 
 
     @GetMapping("/users")
@@ -27,6 +32,19 @@ public class UserController {
         log.info("Getting user");
         Optional<User> user = userService.getUser(id);
         return user.orElse(null);
+    }
+
+    @GetMapping("/user/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        log.info("Getting user by email");
+        Optional<User> user = userService.getUserByEmail(email);
+        return user.orElse(null);
+    }
+
+    @GetMapping("/user/token/{token}")
+    public User getUserFromToken(@PathVariable String token) {
+        log.info("Getting user from token");
+        return tokenService.getUserFromToken(token);
     }
 
     @PutMapping("/user/{id}")
@@ -47,12 +65,6 @@ public class UserController {
     public User createUser(@RequestBody User user) {
         log.info("Creating user");
         return userService.saveUser(user);
-    }
-
-    @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        log.info("Logging in");
-        return userService.login(user);
     }
 
     @DeleteMapping("/user/{id}")

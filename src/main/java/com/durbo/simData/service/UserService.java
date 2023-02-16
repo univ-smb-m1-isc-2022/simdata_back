@@ -5,6 +5,8 @@ import com.durbo.simData.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.durbo.simData.service.TokenService;
+
 
 import java.util.Optional;
 
@@ -31,14 +33,18 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(User user) {
-        Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
+    public User login(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User userToLogin = userOptional.get();
-            if (userToLogin.getPassword().equals(user.getPassword())) {
+            if (userToLogin.getPassword().equals(password)) {
                 return userToLogin;
             }
         }
         return null;
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
