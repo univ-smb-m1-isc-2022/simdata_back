@@ -1,13 +1,12 @@
-package com.durbo.simData.model;
+package com.durbo.simData.user.model;
 
-import com.durbo.simData.model.enums.Role;
+import com.durbo.simData.user.model.enums.Role;
 import jakarta.persistence.*;
 
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "users")
+@Entity(name = "users")
 public class User {
     //the column need to be unique
     @Id

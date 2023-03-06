@@ -1,9 +1,9 @@
-package com.durbo.simData.controller;
+package com.durbo.simData.authentification.controller;
 
-import com.durbo.simData.model.User;
-import com.durbo.simData.model.enums.Role;
-import com.durbo.simData.service.TokenService;
-import com.durbo.simData.service.UserService;
+import com.durbo.simData.user.model.User;
+import com.durbo.simData.user.model.enums.Role;
+import com.durbo.simData.authentification.service.TokenService;
+import com.durbo.simData.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
