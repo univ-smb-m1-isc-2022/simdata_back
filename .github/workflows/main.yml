@@ -25,7 +25,7 @@ jobs:
       #          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t simData_back .
+        run: docker build -t simdata_back .
 
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
