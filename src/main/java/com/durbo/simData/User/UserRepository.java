@@ -1,6 +1,5 @@
-package com.durbo.simData.user.repository;
+package com.durbo.simData.User;
 
-import com.durbo.simData.user.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,6 @@
-package com.durbo.simData.user.controller;
+package com.durbo.simData.User;
 
-import com.durbo.simData.user.model.User;
-import com.durbo.simData.authentification.service.TokenService;
-import com.durbo.simData.user.service.UserService;
+import com.durbo.simData.authentification.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,27 +25,27 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public User getUser(@PathVariable Long id) {
         log.info("Getting user");
         Optional<User> user = userService.getUser(id);
         return user.orElse(null);
     }
 
-    @GetMapping("/user/email/{email}")
+    @GetMapping("/users/email/{email}")
     public User getUserByEmail(@PathVariable String email) {
         log.info("Getting user by email");
         Optional<User> user = userService.getUserByEmail(email);
         return user.orElse(null);
     }
 
-    @GetMapping("/user/token/{token}")
+    @GetMapping("/users/token/{token}")
     public User getUserFromToken(@PathVariable String token) {
         log.info("Getting user from token");
         return tokenService.getUserFromToken(token);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/users/{id}")
     public User updateUser(@PathVariable Long id, User user) {
         log.info("Updating user");
         Optional<User> userOptional = userService.getUser(id);
@@ -67,7 +65,7 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
         log.info("Deleting user");
         userService.deleteUser(id);

@@ -1,37 +1,36 @@
 package com.durbo.simData.core;
 
-import com.durbo.simData.core.values.IntegerValue;
-import com.durbo.simData.core.values.StringValue;
+import com.durbo.simData.core.attributes.Attribute;
+import com.durbo.simData.core.datas.IntegerData;
+import com.durbo.simData.core.datas.StringData;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
-import java.util.List;
-
-@SpringBootTest
+@SpringBootTest(classes = {Attribute.class})
 public class AttributeTest {
 
     @Test
     public void testStringAttribute(){
         Attribute attribute = new Attribute("test", TYPE.STRING);
-        StringValue stringValue = new StringValue("test");
-        attribute.addData(stringValue);
+        StringData stringData = new StringData("test");
+        attribute.addData(stringData);
         Assert.isTrue(attribute.getDatas().size() == 1, "Attribute.addData() failed");
     }
 
     @Test
     public void testIntegerAttribute(){
         Attribute attribute = new Attribute("test", TYPE.INTEGER);
-        IntegerValue integerValue = new IntegerValue(1);
-        attribute.addData(integerValue);
+        IntegerData integerData = new IntegerData(1);
+        attribute.addData(integerData);
         Assert.isTrue(attribute.getDatas().size() == 1, "Attribute.addData() failed");
     }
 
     @Test
     public void testIntegerAttributeWrongType(){
         Attribute attribute = new Attribute("test", TYPE.INTEGER);
-        StringValue stringValue = new StringValue("test");
-        attribute.addData(stringValue);
+        StringData stringData = new StringData("test");
+        attribute.addData(stringData);
         Assert.isTrue(attribute.getDatas().size() == 0, "Attribute.addData() failed");
     }
 }

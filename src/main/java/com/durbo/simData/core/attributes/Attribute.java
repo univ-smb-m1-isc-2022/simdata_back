@@ -1,4 +1,7 @@
-package com.durbo.simData.core;
+package com.durbo.simData.core.attributes;
+import com.durbo.simData.core.SimData;
+import com.durbo.simData.core.datas.ObjectData;
+import com.durbo.simData.core.TYPE;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,11 +23,8 @@ public class Attribute{
     @Column
     private TYPE type;
 
-    @ManyToOne
-    private SimDataObject object;
-
-    //list of proposals
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "attribute")
+    //list of datas that are associated with this attribute
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SimData> datas;
 
 
@@ -36,6 +36,7 @@ public class Attribute{
 
     public Attribute() {
         this.name = "";
+        this.type = TYPE.NULL;
         this.datas = new ArrayList<>();
     }
 
@@ -43,13 +44,19 @@ public class Attribute{
         //check if data is of the correct type
         if (data.getType() == this.type) {
             this.datas.add(data);
-            data.setAttribute(this);
         }
     }
 
     public void removeData(SimData data) {
         this.datas.remove(data);
-        data.setAttribute(null);
+    }
+
+    public SimData getValidData() {
+        //TODO: update this method to return the most noteworthy value
+        if (this.datas.size() > 0) {
+            return this.datas.get(0);
+        }
+        return null;
     }
 
 }

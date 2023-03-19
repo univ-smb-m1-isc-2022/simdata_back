@@ -1,27 +1,28 @@
 package com.durbo.simData.core;
 
+import com.durbo.simData.core.attributes.Attribute;
+import com.durbo.simData.core.datas.ObjectData;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class SimDataObjectTest {
+public class ObjectDataTest {
 
     @Test
     public void testSimDataObjectConstructor() {
-        SimDataObject simDataObject = new SimDataObject();
-        assert simDataObject.getAttributes().size() == 0;
+        ObjectData objectData = new ObjectData(TYPE.TEST,List.of());
+        assert objectData.getAttributes().size() == 0;
     }
 
     @Test
     public void testSimDataObjectWithAttribute() {
-        SimDataObject simDataObject = new SimDataObject(
-            "test",
+        ObjectData objectData = new ObjectData(
             TYPE.TRACK,
             List.of(
                 new Attribute("test", TYPE.STRING),
                 new Attribute("test2", TYPE.INTEGER)
             )
         );
-        assert simDataObject.getAttributes().size() == 2;
+        assert objectData.getAttributes().size() == 2;
     }
 }

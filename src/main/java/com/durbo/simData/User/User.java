@@ -1,6 +1,5 @@
-package com.durbo.simData.user.model;
+package com.durbo.simData.User;
 
-import com.durbo.simData.user.model.enums.Role;
 import jakarta.persistence.*;
 
 import lombok.Data;

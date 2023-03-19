@@ -1,7 +1,7 @@
-package com.durbo.simData.authentification.service;
+package com.durbo.simData.authentification;
 
-import com.durbo.simData.user.model.User;
-import com.durbo.simData.user.service.UserService;
+import com.durbo.simData.User.User;
+import com.durbo.simData.User.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
