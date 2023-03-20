@@ -17,7 +17,7 @@ public class TrackController {
     private TrackService trackService;
 
     @GetMapping("/tracks")
-    public ArrayList<ObjectData> getTracks() {
+    public ArrayList<Track> getTracks() {
         log.info("Getting tracks");
         return trackService.getAll();
     }

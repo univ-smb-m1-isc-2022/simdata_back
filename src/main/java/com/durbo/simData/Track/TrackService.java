@@ -14,8 +14,13 @@ public class TrackService {
     @Autowired
     private ObjectDataRepository objectDataRepository;
 
-    public ArrayList<ObjectData> getAll() {
-        return objectDataRepository.findByType(TYPE.TRACK);
+    public ArrayList<Track> getAll() {
+        ArrayList<Track> tracks = new ArrayList<>();
+        objectDataRepository.findByType(TYPE.TRACK).forEach(objectData -> {
+            TrackFactory trackFactory = new TrackFactory();
+            tracks.add(trackFactory.convert(objectData));
+        });
+        return tracks;
     }
 
     public ObjectData create(Track track) {
