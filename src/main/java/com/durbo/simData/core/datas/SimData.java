@@ -1,5 +1,6 @@
-package com.durbo.simData.core;
+package com.durbo.simData.core.datas;
 
+import com.durbo.simData.core.TYPE;
 import com.durbo.simData.core.attributes.Attribute;
 import jakarta.persistence.*;
 
@@ -22,5 +23,12 @@ abstract public class SimData {
 
     public SimData(TYPE type) {
         this.type = type;
+    }
+
+    public void setValue(Object value) {
+    }
+
+    public Object getValue() throws InstantiationException, IllegalAccessException {
+        return null;
     }
 }

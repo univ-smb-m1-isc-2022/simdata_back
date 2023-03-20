@@ -1,7 +1,7 @@
 package com.durbo.simData.core;
 
 import com.durbo.simData.core.datas.IntegerData;
-import com.durbo.simData.core.datas.ObjectData;
+import com.durbo.simData.core.datas.object.ObjectData;
 import com.durbo.simData.core.datas.StringData;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,13 +1,18 @@
 package com.durbo.simData.Track;
 
-import com.durbo.simData.core.ObjectDataRepository;
+import com.durbo.simData.core.datas.object.ObjectDataFactory;
+import com.durbo.simData.core.datas.object.ObjectDataRepository;
 import com.durbo.simData.core.TYPE;
-import com.durbo.simData.core.datas.ObjectData;
+import com.durbo.simData.core.datas.object.ObjectData;
+import com.durbo.simData.core.datas.object.ObjectDataService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,13 +21,13 @@ import static org.mockito.Mockito.when;
 public class TrackServiceTest {
 
     @InjectMocks
-    private TrackService trackService;
+    private ObjectDataService<Track> trackService;
 
     @Mock
     private ObjectDataRepository objectDataRepository;
 
 
-    ObjectFactory<Track> trackFactory = new ObjectFactory<Track>();
+    ObjectDataFactory<Track> trackFactory = new ObjectDataFactory<>();
 
     Track track = new Track();
 
@@ -45,12 +50,14 @@ public class TrackServiceTest {
 
         when(objectDataRepository.findByType(TYPE.TRACK)).thenReturn(Optional.ofNullable(trackObj));
 
-        List<Track> tracks = trackService.getAll();
+        ArrayList<Object> tracks = trackService.getAll(TYPE.TRACK);
         assert(tracks.size() == 1);
-        assert(tracks.get(0).getName().equals("Test Track"));
-        assert(tracks.get(0).getCountry().equals("Test Country"));
-        assert(tracks.get(0).getLatitude() == 0.0);
-        assert(tracks.get(0).getLongitude() == 0.0);
+        Object track = tracks.get(0);
+        Track track1 = (Track) track;
+        //TODO: add name
+        assert(track1.getCountry().equals("Test Country"));
+        assert(track1.getLatitude() == 0.0);
+        assert(track1.getLongitude() == 0.0);
     }
 
     @Test

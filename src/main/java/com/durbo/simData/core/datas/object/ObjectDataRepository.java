@@ -1,10 +1,9 @@
-package com.durbo.simData.core;
+package com.durbo.simData.core.datas.object;
 
-import com.durbo.simData.core.datas.ObjectData;
+import com.durbo.simData.core.TYPE;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository

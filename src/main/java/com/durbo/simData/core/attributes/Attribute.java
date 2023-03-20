@@ -1,6 +1,5 @@
 package com.durbo.simData.core.attributes;
-import com.durbo.simData.core.SimData;
-import com.durbo.simData.core.datas.ObjectData;
+import com.durbo.simData.core.datas.SimData;
 import com.durbo.simData.core.TYPE;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -59,4 +58,12 @@ public class Attribute{
         return null;
     }
 
+    public Object getValue() throws InstantiationException, IllegalAccessException {
+        try{
+            return this.type.getClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

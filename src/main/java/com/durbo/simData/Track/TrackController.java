@@ -1,7 +1,7 @@
 package com.durbo.simData.Track;
 
-import com.durbo.simData.core.datas.ObjectData;
 import com.durbo.simData.core.TYPE;
+import com.durbo.simData.core.datas.object.ObjectDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class TrackController {
 
     @Autowired
-    private TrackService trackService;
+    private ObjectDataService<Track> trackService;
 
     @GetMapping("/tracks")
-    public ArrayList<Track> getTracks() {
+    public ArrayList<Object> getTracks() {
         log.info("Getting tracks");
-        return trackService.getAll();
+        return trackService.getAll(TYPE.TRACK);
     }
 
     @PostMapping("/track")

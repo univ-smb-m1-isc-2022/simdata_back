@@ -1,6 +1,5 @@
 package com.durbo.simData.core.datas;
 
-import com.durbo.simData.core.SimData;
 import com.durbo.simData.core.TYPE;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,5 +22,15 @@ public class IntegerData extends SimData {
         public IntegerData(Integer value) {
             super(TYPE.INTEGER);
             this.value = value;
+        }
+
+        @Override
+        public void setValue(Object value) {
+            this.value = (Integer) value;
+        }
+
+        @Override
+        public Object getValue() {
+            return this.value;
         }
 }
