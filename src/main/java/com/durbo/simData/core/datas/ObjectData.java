@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
+import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
 @lombok.Data
@@ -27,12 +28,12 @@ public class ObjectData extends SimData {
         this.setAttributes(null);
     }
 
-    public Attribute getAttribute(String name) {
+    public Optional<Attribute> getAttribute(String name) {
         for (Attribute attribute : attributes) {
             if (attribute.getName().equals(name)) {
-                return attribute;
+                return Optional.of(attribute);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }

@@ -6,17 +6,20 @@ import com.durbo.simData.core.attributes.Attribute;
 import com.durbo.simData.core.datas.DoubleData;
 import com.durbo.simData.core.datas.ObjectData;
 import com.durbo.simData.core.datas.StringData;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackFactory{
+@Service
+public class ObjectFactory<T>{
 
 
-    private ArrayList<Attribute> getAttributes(Track track){
+    private ArrayList<Attribute> getAttributes(T dictionary) {
         ArrayList<Attribute> attributes = new ArrayList<>();
-        Field[] fields = track.getClass().getDeclaredFields();
+        Field[] fields = dictionary.getClass().getDeclaredFields();
         for (Field field : fields) {
             switch (field.getType().getSimpleName()) {
                 case "String" -> attributes.add(new Attribute(field.getName(), TYPE.STRING));
@@ -30,18 +33,18 @@ public class TrackFactory{
         return attributes;
     }
 
-    private void setDatas(ObjectData objectData, Track track) throws IllegalAccessException {
-        Field[] fields = track.getClass().getDeclaredFields();
+    private void setDatas(ObjectData objectData, T dictionary) throws IllegalAccessException {
+        Field[] fields = dictionary.getClass().getDeclaredFields();
         for (Field field : fields) {
             switch (field.getType().getSimpleName()) {
                 case "String" -> {
-                    objectData.getAttribute(field.getName()).addData(new StringData((String) field.get(track)));
+                    objectData.getAttribute(field.getName()).orElseThrow().addData(new StringData((String) field.get(dictionary)));
                 }
                 case "double" -> {
-                    objectData.getAttribute(field.getName()).addData(new DoubleData((double) field.get(track)));
+                    objectData.getAttribute(field.getName()).orElseThrow().addData(new DoubleData((double) field.get(dictionary)));
                 }
                 case "Integer" -> {
-                    objectData.getAttribute(field.getName()).addData(new DoubleData((Integer) field.get(track)));
+                    objectData.getAttribute(field.getName()).orElseThrow().addData(new DoubleData((Integer) field.get(dictionary)));
                 }
                 default -> {
                 }
@@ -49,25 +52,16 @@ public class TrackFactory{
         }
     }
 
-    public ObjectData create(Track track) {
+    public ObjectData create(T dictionary){
         ObjectData object = new ObjectData(
                 TYPE.TRACK,
-                getAttributes(track)
+                getAttributes(dictionary)
         );
         try {
-            setDatas(object, track);
+            setDatas(object, dictionary);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         return object;
-    }
-
-    public Track convert(ObjectData objectData){
-        Track track = new Track();
-        track.name = ((StringData) objectData.getAttribute("name").getValidData()).getValue();
-        track.country = ((StringData) objectData.getAttribute("country").getValidData()).getValue();
-        track.latitude = ((DoubleData) objectData.getAttribute("latitude").getValidData()).getValue();
-        track.longitude = ((DoubleData) objectData.getAttribute("longitude").getValidData()).getValue();
-        return track;
     }
 }

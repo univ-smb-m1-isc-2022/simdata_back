@@ -23,7 +23,7 @@ public class TrackController {
     }
 
     @PostMapping("/track")
-    public ObjectData createTrack(@RequestBody Track track) {
+    public Track createTrack(@RequestBody Track track) {
         log.info("Creating track");
         return trackService.create(track);
     }
