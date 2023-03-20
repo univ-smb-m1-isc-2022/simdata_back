@@ -2,7 +2,7 @@ package com.durbo.simData.core.datas;
 
 import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.TYPE;
-import com.durbo.simData.core.datas.object.ObjectDataFactory;
+import com.durbo.simData.core.object.ObjectDataFactory;
 import com.durbo.simData.layout.Layout;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +28,8 @@ public class DataFactory {
 
     public SimData create(TYPE type, Object value) {
         SimData data = typeToSimData(type);
+        if(value == null)
+            return data;
         data.setValue(value);
         return data;
     }

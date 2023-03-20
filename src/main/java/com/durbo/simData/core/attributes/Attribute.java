@@ -58,11 +58,10 @@ public class Attribute{
         return null;
     }
 
-    public Object getValue() throws InstantiationException, IllegalAccessException {
-        try{
-            return this.type.getClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+    public Object getValue(){
+        SimData data = this.getValidData();
+        if (data != null) {
+            return data.getValue();
         }
         return null;
     }

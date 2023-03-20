@@ -1,5 +1,6 @@
-package com.durbo.simData.core.datas.object;
+package com.durbo.simData.core.object;
 
+import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.TYPE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,12 @@ public class ObjectDataService<T> {
                 });
         System.out.println(objs);
         return objs;
+    }
+
+    public Track getBy(TYPE type, String key, String value) {
+        return (Track) objectDataRepository.findBy(type,key, value)
+                .orElseThrow()
+                .getValue();
     }
 
     public T create(T obj) {

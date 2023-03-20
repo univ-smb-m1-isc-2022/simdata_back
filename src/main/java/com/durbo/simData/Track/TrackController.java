@@ -1,7 +1,7 @@
 package com.durbo.simData.Track;
 
 import com.durbo.simData.core.TYPE;
-import com.durbo.simData.core.datas.object.ObjectDataService;
+import com.durbo.simData.core.object.ObjectDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +20,12 @@ public class TrackController {
     public ArrayList<Object> getTracks() {
         log.info("Getting tracks");
         return trackService.getAll(TYPE.TRACK);
+    }
+
+    @GetMapping("/tracks/{name}")
+    public Track getTrack(@PathVariable String name) {
+        log.info("Getting track");
+        return trackService.getBy(TYPE.TRACK,"name", name);
     }
 
     @PostMapping("/track")

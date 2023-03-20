@@ -1,10 +1,7 @@
-package com.durbo.simData.Track;
+package com.durbo.simData.core.object;
 
-import com.durbo.simData.core.datas.object.ObjectDataFactory;
-import com.durbo.simData.core.datas.object.ObjectDataRepository;
+import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.TYPE;
-import com.durbo.simData.core.datas.object.ObjectData;
-import com.durbo.simData.core.datas.object.ObjectDataService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,13 +9,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
-public class TrackServiceTest {
+public class ObjectServiceTest {
 
     @InjectMocks
     private ObjectDataService<Track> trackService;
@@ -30,6 +25,7 @@ public class TrackServiceTest {
     ObjectDataFactory<Track> trackFactory = new ObjectDataFactory<>();
 
     Track track = new Track();
+    ObjectData trackObj = trackFactory.create(track);
 
 
     @BeforeEach
@@ -41,12 +37,14 @@ public class TrackServiceTest {
         track.setCountry("Test Country");
         track.setLatitude(0.0);
         track.setLongitude(0.0);
+
+        trackObj = trackFactory.create(track);
+
+
     }
 
     @Test
     public void testgetAll() {
-
-        ObjectData trackObj = trackFactory.create(track);
 
         when(objectDataRepository.findByType(TYPE.TRACK)).thenReturn(Optional.ofNullable(trackObj));
 
@@ -63,8 +61,6 @@ public class TrackServiceTest {
     @Test
     public void testCreate() {
 
-            ObjectData trackObj = trackFactory.create(track);
-
             when(objectDataRepository.save(trackObj)).thenReturn(trackObj);
 
             Track createdTrack = trackService.create(track);
@@ -73,6 +69,19 @@ public class TrackServiceTest {
             assert(createdTrack.getCountry().equals("Test Country"));
             assert(createdTrack.getLatitude() == 0.0);
             assert(createdTrack.getLongitude() == 0.0);
+    }
+
+    @Test
+    public void testGetBy(){
+
+        when(objectDataRepository.findBy(TYPE.TRACK,"name", "Test Track")).thenReturn(Optional.ofNullable(trackObj));
+
+        Track track = trackService.getBy(TYPE.TRACK, "name", "Test Track");
+
+        assert(track.getName().equals("Test Track"));
+        assert(track.getCountry().equals("Test Country"));
+        assert(track.getLatitude() == 0.0);
+        assert(track.getLongitude() == 0.0);
     }
 
 

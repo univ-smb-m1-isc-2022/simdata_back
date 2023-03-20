@@ -1,13 +1,10 @@
-package com.durbo.simData.core;
+package com.durbo.simData.core.object;
 
 import com.durbo.simData.Track.Track;
+import com.durbo.simData.core.TYPE;
 import com.durbo.simData.core.attributes.Attribute;
-import com.durbo.simData.core.datas.object.ObjectData;
-import com.durbo.simData.core.datas.object.ObjectDataFactory;
-import org.hibernate.engine.transaction.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class ObjectDataTest {

@@ -1,4 +1,4 @@
-package com.durbo.simData.core.datas.object;
+package com.durbo.simData.core.object;
 
 import com.durbo.simData.core.datas.SimData;
 import com.durbo.simData.core.TYPE;
@@ -55,8 +55,8 @@ public class ObjectData extends SimData {
         this.getAttributes().forEach(attribute -> {
             try {
                 assert finalObject != null;
-                finalObject.getClass().getDeclaredField(attribute.getName()).set(finalObject, attribute.getValidData().getValue());
-            } catch (IllegalAccessException | NoSuchFieldException | InstantiationException e) {
+                finalObject.getClass().getDeclaredField(attribute.getName()).set(finalObject, attribute.getValue());
+            } catch (IllegalAccessException | NoSuchFieldException e) {
                 throw new RuntimeException(e);
             }
         });

@@ -28,7 +28,7 @@ abstract public class SimData {
     public void setValue(Object value) {
     }
 
-    public Object getValue() throws InstantiationException, IllegalAccessException {
+    public Object getValue(){
         return null;
     }
 }

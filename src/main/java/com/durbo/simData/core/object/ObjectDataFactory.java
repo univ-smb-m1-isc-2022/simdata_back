@@ -1,4 +1,4 @@
-package com.durbo.simData.core.datas.object;
+package com.durbo.simData.core.object;
 
 
 import com.durbo.simData.core.TYPE;
@@ -37,7 +37,7 @@ public class ObjectDataFactory<T>{
      * @param objectData the object to set the data for
      * @param dictionary the dictionary to get the data from
      */
-    private void setDatas(ObjectData objectData, T dictionary) throws IllegalAccessException {
+    private void createDatas(ObjectData objectData, T dictionary) throws IllegalAccessException {
         Field[] fields = dictionary.getClass().getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
@@ -45,17 +45,24 @@ public class ObjectDataFactory<T>{
             Attribute attribute = objectData.getAttribute(fieldName).orElseThrow();
             field.setAccessible(true);
             Object value = field.get(dictionary);
+            if (value == null) {
+                continue;
+            }
             attribute.addData(dataFactory.create(fieldType, value));
         }
     }
 
+    public TYPE getType(T dictionary){
+        return TYPE.get(dictionary.getClass().getSimpleName());
+    }
+
     public ObjectData create(T dictionary){
         ObjectData object = new ObjectData(
-                TYPE.TRACK,
+                getType(dictionary),
                 getAttributes(dictionary)
         );
         try {
-            setDatas(object, dictionary);
+            createDatas(object, dictionary);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,7 @@
 package com.durbo.simData.Track;
 
-import com.durbo.simData.core.datas.object.ObjectData;
-import com.durbo.simData.core.datas.object.ObjectDataFactory;
+import com.durbo.simData.core.object.ObjectData;
+import com.durbo.simData.core.object.ObjectDataFactory;
 import org.junit.jupiter.api.Test;
 
 public class TrackFactoryTest {
