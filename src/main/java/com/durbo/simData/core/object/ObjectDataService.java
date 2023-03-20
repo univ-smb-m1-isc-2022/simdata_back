@@ -19,18 +19,19 @@ public class ObjectDataService<T> {
 
     public ArrayList<Object> getAll(TYPE type) {
         ArrayList<Object> objs = new ArrayList<>();
-        objectDataRepository.findByType(type)
-                .ifPresent(objectData -> {
-                    objs.add(objectData.getValue());
-                });
+        objectDataRepository.findByType(type).forEach(
+                objectData -> objs.add(objectData.getValue())
+        );
         System.out.println(objs);
         return objs;
     }
 
-    public Track getBy(TYPE type, String key, String value) {
-        return (Track) objectDataRepository.findBy(type,key, value)
-                .orElseThrow()
-                .getValue();
+    public ArrayList<Object> getBy(TYPE type, String key, String value) {
+        ArrayList<Object> objs = new ArrayList<>();
+        objectDataRepository.findBy(type,key, value).forEach(
+                objectData -> objs.add(objectData.getValue())
+        );
+        return objs;
     }
 
     public T create(T obj) {

@@ -27,7 +27,9 @@ public class ObjectDataFactory<T>{
         Field[] fields = dictionary.getClass().getDeclaredFields();
         for (Field field : fields) {
             // create a new attribute for each field
-            attributes.add(new Attribute(field.getName(), TYPE.get(field.getType().getSimpleName())));
+            //if the field is a dictionary, then create a new object data
+            Attribute attribute = new Attribute(field.getName(), TYPE.get(field.getType().getSimpleName()));
+            attributes.add(attribute);
         }
         return attributes;
     }
@@ -48,6 +50,7 @@ public class ObjectDataFactory<T>{
             if (value == null) {
                 continue;
             }
+            System.out.println("field : "+ fieldType +" value: " + value);
             attribute.addData(dataFactory.create(fieldType, value));
         }
     }

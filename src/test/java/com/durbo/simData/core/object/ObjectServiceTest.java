@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -46,7 +47,7 @@ public class ObjectServiceTest {
     @Test
     public void testgetAll() {
 
-        when(objectDataRepository.findByType(TYPE.TRACK)).thenReturn(Optional.ofNullable(trackObj));
+        when(objectDataRepository.findByType(TYPE.TRACK)).thenReturn(new ArrayList<>(List.of(trackObj)));
 
         ArrayList<Object> tracks = trackService.getAll(TYPE.TRACK);
         assert(tracks.size() == 1);
@@ -74,9 +75,9 @@ public class ObjectServiceTest {
     @Test
     public void testGetBy(){
 
-        when(objectDataRepository.findBy(TYPE.TRACK,"name", "Test Track")).thenReturn(Optional.ofNullable(trackObj));
+        when(objectDataRepository.findBy(TYPE.TRACK,"name", "Test Track")).thenReturn(new ArrayList<>(List.of(trackObj)));
 
-        Track track = trackService.getBy(TYPE.TRACK, "name", "Test Track");
+        Track track = (Track) trackService.getBy(TYPE.TRACK, "name", "Test Track").get(0);
 
         assert(track.getName().equals("Test Track"));
         assert(track.getCountry().equals("Test Country"));

@@ -9,28 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DataFactory {
 
-    public static SimData typeToSimData(TYPE type) {
-        //TODO: Maybe find a better way to do this
+    public SimData create(TYPE type, Object value) {
         return switch (type) {
-            case DOUBLE -> new DoubleData();
-            case STRING -> new StringData();
-            case INTEGER -> new IntegerData();
-            case TRACK -> new ObjectDataFactory<Track>().create(new Track());
-            case LAYOUT -> new ObjectDataFactory<Layout>().create(new Layout());
+            case DOUBLE -> new DoubleData((double) value);
+            case STRING -> new StringData((String) value);
+            case INTEGER -> new IntegerData((Integer) value);
+            case TRACK -> new ObjectDataFactory<Track>().create((Track) value);
+            case LAYOUT -> new ObjectDataFactory<Layout>().create((Layout) value);
             default -> null;
         };
-    }
-
-
-    public SimData create(TYPE type) {
-        return typeToSimData(type);
-    }
-
-    public SimData create(TYPE type, Object value) {
-        SimData data = typeToSimData(type);
-        if(value == null)
-            return data;
-        data.setValue(value);
-        return data;
     }
 }

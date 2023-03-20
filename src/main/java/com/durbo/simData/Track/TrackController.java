@@ -25,7 +25,7 @@ public class TrackController {
     @GetMapping("/tracks/{name}")
     public Track getTrack(@PathVariable String name) {
         log.info("Getting track");
-        return trackService.getBy(TYPE.TRACK,"name", name);
+        return (Track) trackService.getBy(TYPE.TRACK,"name", name).get(0);
     }
 
     @PostMapping("/track")
