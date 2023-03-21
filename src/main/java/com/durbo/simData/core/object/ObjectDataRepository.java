@@ -19,6 +19,7 @@ public interface ObjectDataRepository extends CrudRepository<ObjectData, Long> {
         for (ObjectData objectData : objectDatas) {
             Optional<Attribute> attribute = objectData.getAttribute(key);
             if (attribute.isPresent()) {
+                // TODO: check if attribute is an array
                 if (attribute.get().getValue().equals(value)) {
                     found.add(objectData);
                 }

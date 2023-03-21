@@ -26,6 +26,7 @@ public class ObjectDataFactory<T>{
         for (Field field : fields) {
             // create a new attribute for each field
             //if the field is a dictionary, then create a new object data
+            // TODO: check if attribute is an array
             Attribute attribute = new Attribute(field.getName(), field.getType().getSimpleName());
             attributes.add(attribute);
         }

@@ -1,9 +1,7 @@
 package com.durbo.simData.core.object;
 
-import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.datas.SimData;
 import com.durbo.simData.core.attributes.Attribute;
-import com.durbo.simData.layout.Layout;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
@@ -37,17 +35,6 @@ public class ObjectData extends SimData {
             }
         }
         return Optional.empty();
-    }
-
-    public Class<?> getrealType() {
-        return switch (this.getType()) {
-            case "Integer" -> Integer.class;
-            case "double" -> double.class;
-            case "String" -> String.class;
-            case "Track" -> Track.class;
-            case "Layout" -> Layout.class;
-            default -> throw new RuntimeException("ObjectData.stringToObject() - type not found");
-        };
     }
 
     /***

@@ -24,7 +24,7 @@ public class Attribute{
 
     //list of datas that are associated with this attribute
     @OneToMany(cascade = CascadeType.ALL)
-    private List<SimData> datas;
+    private ArrayList<SimData> datas;
 
 
     public Attribute(String name, String type) {

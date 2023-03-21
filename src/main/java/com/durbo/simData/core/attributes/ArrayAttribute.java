@@ -1,8 +1,11 @@
 package com.durbo.simData.core.attributes;
 
+import com.durbo.simData.core.datas.SimData;
 import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "array_attributes")
@@ -17,5 +20,16 @@ public class ArrayAttribute extends Attribute {
         super();
     }
 
-    //TODO: getValidValues() method
+    public ArrayList<SimData> validDatas(){
+        return this.getDatas();
+    }
+
+    public ArrayList<Object> values(){
+        ArrayList<Object> values = new ArrayList<>();
+        ArrayList<SimData> data = this.validDatas();
+        for (SimData datum : data) {
+            values.add(datum.getValue());
+        }
+        return values;
+    }
 }
