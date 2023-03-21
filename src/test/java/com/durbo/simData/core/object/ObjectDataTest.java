@@ -1,7 +1,6 @@
 package com.durbo.simData.core.object;
 
 import com.durbo.simData.Track.Track;
-import com.durbo.simData.core.TYPE;
 import com.durbo.simData.core.attributes.Attribute;
 import org.junit.jupiter.api.Test;
 
@@ -11,17 +10,17 @@ public class ObjectDataTest {
 
     @Test
     public void testSimDataObjectConstructor() {
-        ObjectData objectData = new ObjectData(TYPE.TEST,List.of());
+        ObjectData objectData = new ObjectData("Object",List.of());
         assert objectData.getAttributes().size() == 0;
     }
 
     @Test
     public void testSimDataObjectWithAttribute() {
         ObjectData objectData = new ObjectData(
-            TYPE.TRACK,
+            "Track",
             List.of(
-                new Attribute("test", TYPE.STRING),
-                new Attribute("test2", TYPE.INTEGER)
+                new Attribute("test", "String"),
+                new Attribute("test2", "Integer")
             )
         );
         assert objectData.getAttributes().size() == 2;

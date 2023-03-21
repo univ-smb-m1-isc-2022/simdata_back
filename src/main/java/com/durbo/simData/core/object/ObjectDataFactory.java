@@ -1,7 +1,5 @@
 package com.durbo.simData.core.object;
 
-
-import com.durbo.simData.core.TYPE;
 import com.durbo.simData.core.attributes.Attribute;
 import com.durbo.simData.core.datas.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,7 @@ public class ObjectDataFactory<T>{
         for (Field field : fields) {
             // create a new attribute for each field
             //if the field is a dictionary, then create a new object data
-            Attribute attribute = new Attribute(field.getName(), TYPE.get(field.getType().getSimpleName()));
+            Attribute attribute = new Attribute(field.getName(), field.getType().getSimpleName());
             attributes.add(attribute);
         }
         return attributes;
@@ -43,7 +41,7 @@ public class ObjectDataFactory<T>{
         Field[] fields = dictionary.getClass().getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
-            TYPE fieldType = TYPE.get(field.getType().getSimpleName());
+            String fieldType = field.getType().getSimpleName();
             Attribute attribute = objectData.getAttribute(fieldName).orElseThrow();
             field.setAccessible(true);
             Object value = field.get(dictionary);
@@ -55,8 +53,8 @@ public class ObjectDataFactory<T>{
         }
     }
 
-    public TYPE getType(T dictionary){
-        return TYPE.get(dictionary.getClass().getSimpleName());
+    public String getType(T dictionary){
+        return dictionary.getClass().getSimpleName();
     }
 
     public ObjectData create(T dictionary){

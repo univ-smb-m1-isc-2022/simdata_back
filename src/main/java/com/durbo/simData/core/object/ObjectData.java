@@ -1,8 +1,9 @@
 package com.durbo.simData.core.object;
 
+import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.datas.SimData;
-import com.durbo.simData.core.TYPE;
 import com.durbo.simData.core.attributes.Attribute;
+import com.durbo.simData.layout.Layout;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
@@ -19,7 +20,7 @@ public class ObjectData extends SimData {
     @OneToMany(cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
     private List<Attribute> attributes;
 
-    public ObjectData(TYPE type, List<Attribute> attributes) {
+    public ObjectData(String type, List<Attribute> attributes) {
         super(type);
         this.setAttributes(attributes);
     }
@@ -38,6 +39,17 @@ public class ObjectData extends SimData {
         return Optional.empty();
     }
 
+    public Class<?> getrealType() {
+        return switch (this.getType()) {
+            case "Integer" -> Integer.class;
+            case "double" -> double.class;
+            case "String" -> String.class;
+            case "Track" -> Track.class;
+            case "Layout" -> Layout.class;
+            default -> throw new RuntimeException("ObjectData.stringToObject() - type not found");
+        };
+    }
+
     /***
      * For each attribute add a field to an Object, then return the object
      * @return the object
@@ -47,7 +59,7 @@ public class ObjectData extends SimData {
         Object object = null;
         //get instance associated with the type, then set the value of the attribute to the field
         try {
-            object = TYPE.getClazz(this.getType()).newInstance();
+            object = this.getrealType().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

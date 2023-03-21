@@ -1,6 +1,5 @@
 package com.durbo.simData.core.object;
 
-import com.durbo.simData.core.TYPE;
 import com.durbo.simData.core.attributes.Attribute;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -11,10 +10,10 @@ import java.util.Optional;
 @Repository
 public interface ObjectDataRepository extends CrudRepository<ObjectData, Long> {
 
-    ArrayList<ObjectData> findByType(TYPE type);
+    ArrayList<ObjectData> findByType(String type);
 
     //find by attribute name and value
-    default ArrayList<ObjectData> findBy(TYPE type,String key, Object value) {
+    default ArrayList<ObjectData> findBy(String type,String key, Object value) {
         ArrayList<ObjectData> objectDatas = this.findByType(type);
         ArrayList<ObjectData> found = new ArrayList<>();
         for (ObjectData objectData : objectDatas) {

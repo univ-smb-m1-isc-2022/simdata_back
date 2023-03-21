@@ -26,8 +26,8 @@ public class DataTest {
 
         @Test
         public void testObjectData() {
-            ObjectData objectData = new ObjectData(TYPE.NULL, List.of());
-            Assert.isTrue(objectData.getType().equals(TYPE.NULL), "ObjectData.getType() failed");
+            ObjectData objectData = new ObjectData("null", List.of());
+            Assert.isTrue(objectData.getType().equals("null"), "ObjectData.getType() failed");
         }
 
 }

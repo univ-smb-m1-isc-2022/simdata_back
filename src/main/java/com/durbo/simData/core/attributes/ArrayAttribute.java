@@ -1,6 +1,5 @@
 package com.durbo.simData.core.attributes;
 
-import com.durbo.simData.core.TYPE;
 import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ArrayAttribute extends Attribute {
 
-    public ArrayAttribute(String name, TYPE type) {
+    public ArrayAttribute(String name, String type) {
         super(name, type);
     }
 

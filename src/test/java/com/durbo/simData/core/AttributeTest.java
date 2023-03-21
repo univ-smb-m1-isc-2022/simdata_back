@@ -12,7 +12,7 @@ public class AttributeTest {
 
     @Test
     public void testStringAttribute(){
-        Attribute attribute = new Attribute("test", TYPE.STRING);
+        Attribute attribute = new Attribute("test", "String");
         StringData stringData = new StringData("test");
         attribute.addData(stringData);
         Assert.isTrue(attribute.getDatas().size() == 1, "Attribute.addData() failed");
@@ -20,7 +20,7 @@ public class AttributeTest {
 
     @Test
     public void testIntegerAttribute(){
-        Attribute attribute = new Attribute("test", TYPE.INTEGER);
+        Attribute attribute = new Attribute("test", "Integer");
         IntegerData integerData = new IntegerData(1);
         attribute.addData(integerData);
         Assert.isTrue(attribute.getDatas().size() == 1, "Attribute.addData() failed");
@@ -28,7 +28,7 @@ public class AttributeTest {
 
     @Test
     public void testIntegerAttributeWrongType(){
-        Attribute attribute = new Attribute("test", TYPE.INTEGER);
+        Attribute attribute = new Attribute("test", "Integer");
         StringData stringData = new StringData("test");
         attribute.addData(stringData);
         Assert.isTrue(attribute.getDatas().size() == 0, "Attribute.addData() failed");

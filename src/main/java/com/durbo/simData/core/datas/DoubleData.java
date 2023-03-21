@@ -1,6 +1,5 @@
 package com.durbo.simData.core.datas;
 
-import com.durbo.simData.core.TYPE;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,12 +15,12 @@ public class DoubleData extends SimData {
 
 
     public DoubleData() {
-        super(TYPE.DOUBLE);
+        super("double");
         this.value = 0.0;
     }
 
     public DoubleData(double value) {
-        super(TYPE.DOUBLE);
+        super("double");
         this.value = value;
     }
 

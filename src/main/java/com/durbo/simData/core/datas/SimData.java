@@ -1,7 +1,5 @@
 package com.durbo.simData.core.datas;
 
-import com.durbo.simData.core.TYPE;
-import com.durbo.simData.core.attributes.Attribute;
 import jakarta.persistence.*;
 
 @lombok.Data
@@ -15,13 +13,13 @@ abstract public class SimData {
     private Long id;
 
     @Column
-    private TYPE type;
+    private String type;
 
     public SimData() {
-        this.type = TYPE.NULL;
+        this.type = "NULL";
     }
 
-    public SimData(TYPE type) {
+    public SimData(String type) {
         this.type = type;
     }
 

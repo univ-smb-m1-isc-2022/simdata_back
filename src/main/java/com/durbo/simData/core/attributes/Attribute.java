@@ -1,11 +1,11 @@
 package com.durbo.simData.core.attributes;
 import com.durbo.simData.core.datas.SimData;
-import com.durbo.simData.core.TYPE;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity(name = "attributes")
@@ -20,14 +20,14 @@ public class Attribute{
     private String name;
 
     @Column
-    private TYPE type;
+    private String type;
 
     //list of datas that are associated with this attribute
     @OneToMany(cascade = CascadeType.ALL)
     private List<SimData> datas;
 
 
-    public Attribute(String name, TYPE type) {
+    public Attribute(String name, String type) {
         this.name = name;
         this.type = type;
         this.datas = new ArrayList<>();
@@ -35,13 +35,13 @@ public class Attribute{
 
     public Attribute() {
         this.name = "";
-        this.type = TYPE.NULL;
+        this.type = "NULL";
         this.datas = new ArrayList<>();
     }
 
     public void addData(SimData data) {
         //check if data is of the correct type
-        if (data.getType() == this.type) {
+        if (Objects.equals(data.getType(), this.type)) {
             this.datas.add(data);
         }
     }
