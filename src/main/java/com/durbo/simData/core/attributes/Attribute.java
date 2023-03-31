@@ -27,7 +27,7 @@ public class Attribute{
     private String type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "object_id", referencedColumnName = "id")
+    @JoinColumn(name = "object_id")
     private ObjectData objectData;
     //TODO: link not working properly
 
@@ -36,7 +36,8 @@ public class Attribute{
     private List<SimData> datas;
 
 
-    public Attribute(String name, String type) {
+    public Attribute(ObjectData objectData,String name, String type) {
+        this.objectData = objectData;
         this.name = name;
         this.type = type;
         this.datas = new ArrayList<>();
@@ -86,5 +87,9 @@ public class Attribute{
             case "String" -> "";
             default -> null;
         };
+    }
+
+    public String toString(){
+        return this.name + " : " + this.getValue();
     }
 }

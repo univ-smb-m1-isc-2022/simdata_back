@@ -23,7 +23,7 @@ abstract public class SimData {
     private String type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "attribute_id", referencedColumnName = "id")
+    @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 
     public SimData() {
@@ -32,6 +32,11 @@ abstract public class SimData {
 
     public SimData(String type) {
         this.type = type;
+    }
+
+    public SimData(String type, Attribute attribute) {
+        this.type = type;
+        this.attribute = attribute;
     }
 
     public Class<?> getrealType() {

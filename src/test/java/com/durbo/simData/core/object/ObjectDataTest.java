@@ -19,8 +19,8 @@ public class ObjectDataTest {
         ObjectData objectData = new ObjectData(
             "Track",
             List.of(
-                new Attribute("test", "String"),
-                new Attribute("test2", "Integer")
+                new Attribute(null,"test", "String"),
+                new Attribute(null,"test2", "Integer")
             )
         );
         assert objectData.getAttributes().size() == 2;

@@ -1,6 +1,7 @@
 package com.durbo.simData.core.object;
 
 import com.durbo.simData.core.attributes.Attribute;
+import com.durbo.simData.core.simdata.SimData;
 import com.durbo.simData.core.simdata.SimDataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class ObjectDataFactory<T>{
      * @param dictionary the dictionary to find the attributes for
      * @return the attributes associated with the dictionary
      */
-    private ArrayList<Attribute> getAttributes(T dictionary) {
+    private ArrayList<Attribute> getAttributes(ObjectData objectData,T dictionary) {
         ArrayList<Attribute> attributes = new ArrayList<>();
         Field[] fields = dictionary.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -34,7 +35,7 @@ public class ObjectDataFactory<T>{
             if (type.equals("ArrayList")) {
                 type = field.getGenericType().getTypeName();
             }
-            attribute = new Attribute(field.getName(), type);
+            attribute = new Attribute(objectData,field.getName(), type);
             attributes.add(attribute);
         }
         return attributes;
@@ -55,10 +56,14 @@ public class ObjectDataFactory<T>{
             if (fieldType.equals("ArrayList")) {
                 for (Object o : (ArrayList) field.get(dictionary)) {
                     fieldType = o.getClass().getSimpleName();
-                    attribute.addData(dataFactory.create(fieldType, o));
+                    SimData simData = dataFactory.create(fieldType, o);
+                    simData.setAttribute(attribute);
+                    attribute.addData(simData);
                 }
             } else {
-                attribute.addData(dataFactory.create(fieldType, field.get(dictionary)));
+                SimData simData = dataFactory.create(fieldType, field.get(dictionary));
+                simData.setAttribute(attribute);
+                attribute.addData(simData);
             }
             /*
 
@@ -83,6 +88,17 @@ public class ObjectDataFactory<T>{
         System.out.println(objectData);
     }
 
+    private String getName(T dictionary){
+        try {
+            Field field = dictionary.getClass().getDeclaredField("name");
+            field.setAccessible(true);
+            return (String) field.get(dictionary);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private String getType(T dictionary){
         return dictionary.getClass().getSimpleName();
     }
@@ -90,14 +106,18 @@ public class ObjectDataFactory<T>{
     public ObjectData create(T dictionary){
         ObjectData object = new ObjectData(
                 getType(dictionary));
-
-        System.out.println(object);
+        //objectDataRepository.save(object);
+        //System.out.println("1 : " + object);
+        object.setAttributes(getAttributes(object,dictionary));
+        //objectDataRepository.save(object);
+        System.out.println("2 : " + object.getValue());
         try {
             createDatas(object, dictionary);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        //objectDataRepository.save(object);
+        System.out.println("3 : " + object.getValue());
         return object;
-
     }
 }

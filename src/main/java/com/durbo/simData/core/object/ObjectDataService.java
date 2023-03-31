@@ -39,7 +39,8 @@ public class ObjectDataService<T> {
         System.out.println("obj: " + objectData.getValue());
         objectDataRepository.save(objectData);
         //get the object from the database
-        return (T) objectDataRepository.findBy(objectData.getType(), "name", objectData.getAttribute("name").get().getValue()).get(0).getValue();
+        //return (T) objectDataRepository.findBy(objectData.getType(), "name", objectData.getAttribute("name").get().getValue()).get(0).getValue();
+        return (T) objectData.getValue();
     }
 
     public ArrayList<Object> getAttributeDatas(String type, String name, String attribute) {
