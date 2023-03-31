@@ -27,10 +27,10 @@ public class TrackController {
         return (Track) trackService.getBy("Track","name", name).get(0);
     }
 
-    @GetMapping("/tracks/{name}/{attribute}")
-    public ArrayList<Object> getTrackAttributeDatas(@PathVariable String name, @PathVariable String attribute) {
-        log.info("Getting track attributes values for " + attribute);
-        return trackService.getAttributeDatas("Track", name, attribute);
+    @GetMapping("/tracks/{attribute}/{value}")
+    public ArrayList<Object> getTracksByAttribute(@PathVariable String attribute, @PathVariable String value) {
+        log.info("Getting tracks by attribute");
+        return trackService.getBy("Track", attribute, value);
     }
 
     @PostMapping("/track")
