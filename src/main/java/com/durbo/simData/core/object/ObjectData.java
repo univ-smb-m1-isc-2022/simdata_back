@@ -1,21 +1,22 @@
 package com.durbo.simData.core.object;
 
-import com.durbo.simData.core.datas.SimData;
+import com.durbo.simData.core.simdata.SimData;
 import com.durbo.simData.core.attributes.Attribute;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
 @lombok.Data
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
+@Table(name = "OBJ")
+@DiscriminatorValue("OBJ")
+@PrimaryKeyJoinColumn(name = "SD_id")
 public class ObjectData extends SimData {
 
-    @OneToMany(cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objectData", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attribute> attributes;
 
     public ObjectData(String type, List<Attribute> attributes) {
@@ -25,6 +26,11 @@ public class ObjectData extends SimData {
 
     public ObjectData() {
         super();
+        this.setAttributes(null);
+    }
+
+    public ObjectData(String type) {
+        super(type);
         this.setAttributes(null);
     }
 
@@ -59,8 +65,6 @@ public class ObjectData extends SimData {
                 throw new RuntimeException(e);
             }
         });
-        System.out.println("ObjectData.getValue() = " + object);
-        System.out.println(object);
-        return object;
+        return finalObject;
     }
 }

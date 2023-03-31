@@ -1,7 +1,7 @@
 package com.durbo.simData.core.object;
 
 
-import com.durbo.simData.core.datas.SimData;
+import com.durbo.simData.core.simdata.SimData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +36,10 @@ public class ObjectDataService<T> {
 
     public T create(T obj) {
         ObjectData objectData = trackFactory.create(obj);
+        System.out.println("obj: " + objectData.getValue());
         objectDataRepository.save(objectData);
-        return obj;
+        //get the object from the database
+        return (T) objectDataRepository.findBy(objectData.getType(), "name", objectData.getAttribute("name").get().getValue()).get(0).getValue();
     }
 
     public ArrayList<Object> getAttributeDatas(String type, String name, String attribute) {

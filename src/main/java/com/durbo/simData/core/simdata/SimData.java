@@ -1,13 +1,18 @@
-package com.durbo.simData.core.datas;
+package com.durbo.simData.core.simdata;
 
 import com.durbo.simData.Track.Track;
+import com.durbo.simData.core.attributes.Attribute;
 import com.durbo.simData.layout.Layout;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 
 @lombok.Data
 //this class have Column annotation, but it is not used
 @Entity
+@Table(name = "SD")
 @Inheritance(strategy = InheritanceType.JOINED)
+@AllArgsConstructor
+@DiscriminatorValue("SD")
 abstract public class SimData {
 
     @Id
@@ -16,6 +21,10 @@ abstract public class SimData {
 
     @Column
     private String type;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "attribute_id", referencedColumnName = "id")
+    private Attribute attribute;
 
     public SimData() {
         this.type = "NULL";

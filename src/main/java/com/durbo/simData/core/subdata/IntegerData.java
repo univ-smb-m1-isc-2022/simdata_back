@@ -1,5 +1,6 @@
-package com.durbo.simData.core.datas;
+package com.durbo.simData.core.subdata;
 
+import com.durbo.simData.core.simdata.SimData;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

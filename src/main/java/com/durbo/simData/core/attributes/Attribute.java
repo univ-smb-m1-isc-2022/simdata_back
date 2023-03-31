@@ -1,15 +1,19 @@
 package com.durbo.simData.core.attributes;
-import com.durbo.simData.core.datas.SimData;
+import com.durbo.simData.core.object.ObjectData;
+import com.durbo.simData.core.simdata.SimData;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity(name = "attributes")
 @Data
+@AllArgsConstructor
 public class Attribute{
 
     @Id
@@ -22,9 +26,14 @@ public class Attribute{
     @Column
     private String type;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "object_id", referencedColumnName = "id")
+    private ObjectData objectData;
+    //TODO: link not working properly
+
     //list of datas that are associated with this attribute
-    @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<SimData> datas;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "attribute",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SimData> datas;
 
 
     public Attribute(String name, String type) {
@@ -41,8 +50,16 @@ public class Attribute{
 
     public void addData(SimData data) {
         //check if data is of the correct type
-        if (Objects.equals(data.getType(), this.type)) {
+        //separe le type avec un split sur le point
+        String type = this.type.split("\\.")[this.type.split("\\.").length-1];
+        //si le dernier caractère est un >, alors on enlève le dernier caractère
+        if (type.charAt(type.length()-1) == '>'){
+            type = type.substring(0, type.length()-1);
+        }
+        if (Objects.equals(data.getType(), type)) {
             this.datas.add(data);
+        }else{
+            throw new RuntimeException("Attribute.addData() - data type does not match attribute type");
         }
     }
 
@@ -50,19 +67,24 @@ public class Attribute{
         this.datas.remove(data);
     }
 
-    public SimData getValidData() {
-        //TODO: update this method to return the most noteworthy value
-        if (this.datas.size() > 0) {
-            return this.datas.get(0);
-        }
-        return null;
-    }
-
     public Object getValue(){
-        SimData data = this.getValidData();
-        if (data != null) {
-            return data.getValue();
+        if (this.datas.size() > 0){
+            //if type array
+            if (this.type.contains("<")){
+                ArrayList<Object> values = new ArrayList<>();
+                for (SimData data : this.datas) {
+                    values.add(data.getValue());
+                }
+                return values;
+            }
+            return this.datas.get(0).getValue();
         }
-        return null;
+        //return default value depending on type
+        return switch (this.type) {
+            case "Integer" -> 0;
+            case "double" -> 0.0;
+            case "String" -> "";
+            default -> null;
+        };
     }
 }

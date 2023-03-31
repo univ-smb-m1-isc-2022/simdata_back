@@ -1,12 +1,15 @@
-package com.durbo.simData.core.datas;
+package com.durbo.simData.core.simdata;
 
 import com.durbo.simData.Track.Track;
+import com.durbo.simData.core.subdata.DoubleData;
+import com.durbo.simData.core.subdata.IntegerData;
+import com.durbo.simData.core.subdata.StringData;
 import com.durbo.simData.core.object.ObjectDataFactory;
 import com.durbo.simData.layout.Layout;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DataFactory {
+public class SimDataFactory {
 
     public SimData create(String type, Object value) {
         return switch (type) {
