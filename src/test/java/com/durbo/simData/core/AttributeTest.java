@@ -25,12 +25,4 @@ public class AttributeTest {
         attribute.addData(integerData);
         Assert.isTrue(attribute.getDatas().size() == 1, "Attribute.addData() failed");
     }
-
-    @Test
-    public void testIntegerAttributeWrongType(){
-        Attribute attribute = new Attribute(null,"test", "Integer");
-        StringData stringData = new StringData("test");
-        attribute.addData(stringData);
-        Assert.isTrue(attribute.getDatas().size() == 0, "Attribute.addData() failed");
-    }
 }

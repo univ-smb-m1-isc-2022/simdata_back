@@ -65,25 +65,6 @@ public class ObjectDataFactory<T>{
                 simData.setAttribute(attribute);
                 attribute.addData(simData);
             }
-            /*
-
-            Attribute attribute = objectData.getAttribute(fieldName).orElseThrow();
-            field.setAccessible(true);
-            Object value = field.get(dictionary);
-            if (value == null) {
-                continue;
-            }
-            //if the type is ArrayList, get the type of the array
-            if (fieldType.equals("ArrayList")) {
-                for (Object o : (ArrayList) value) {
-                    fieldType = o.getClass().getSimpleName();
-                    attribute.addData(dataFactory.create(fieldType, o));
-                }
-            }else{
-                attribute.addData(dataFactory.create(fieldType, value));
-            }
-             */
-
         }
         System.out.println(objectData);
     }

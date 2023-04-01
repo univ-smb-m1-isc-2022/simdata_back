@@ -1,11 +1,16 @@
 package com.durbo.simData.Track;
 
 import com.durbo.simData.core.object.ObjectDataService;
+import com.durbo.simData.country.Country;
+import com.durbo.simData.country.CountryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -16,6 +21,9 @@ public class TrackController {
 
     @Autowired
     private ObjectDataService<Track> trackService;
+
+    @Autowired
+    private CountryService countryService;
 
     @GetMapping("/tracks")
     public ArrayList<Object> getTracks() {
@@ -32,18 +40,12 @@ public class TrackController {
     @GetMapping("/tracks/region/{value}")
     public ArrayList<Object> getTracksByRegion(@PathVariable String value) throws MalformedURLException {
         log.info("Getting tracks by region");
-        //first get all countries in region
-        //then get all tracks in those countries
-        //api : https://restcountries.com/v3.1/
-        try {
-            URL url = new URL("https://restcountries.com/v3.1/region/" + value);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+        ArrayList<Country> countriesOfRegion = countryService.getCountriesByRegion(value);
+        ArrayList<Object> tracks = new ArrayList<>();
+        for(Country country : countriesOfRegion) {
+            tracks.addAll(trackService.getBy("Track", "country", country.getName()));
         }
-
-
-
-        return trackService.getBy("Track", "region", value);
+        return tracks;
     }
 
     @GetMapping("/tracks/{attribute}/{value}")

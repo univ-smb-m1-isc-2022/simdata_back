@@ -4,6 +4,7 @@ import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.attributes.Attribute;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectDataTest {
@@ -28,11 +29,7 @@ public class ObjectDataTest {
 
     @Test
     public void testGetValue(){
-        Track track = new Track();
-        track.setName("Test Track");
-        track.setCountry("Test Country");
-        track.setLatitude(0.0);
-        track.setLongitude(0.0);
+        Track track = new Track("test", "test", 0, 0, new ArrayList<>());
         ObjectData objectData = new ObjectDataFactory<Track>().create(track);
         Object obj = objectData.getValue();
         assert obj instanceof Track;

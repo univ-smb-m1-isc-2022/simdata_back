@@ -85,7 +85,14 @@ public class Attribute{
             case "Integer" -> 0;
             case "double" -> 0.0;
             case "String" -> "";
-            default -> null;
+            case "Boolean" -> false;
+            default -> {
+                if (this.type.contains("<")) {
+                    yield new ArrayList<>();
+                } else {
+                    yield null;
+                }
+            }
         };
     }
 
