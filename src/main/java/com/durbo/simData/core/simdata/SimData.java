@@ -1,8 +1,9 @@
 package com.durbo.simData.core.simdata;
 
+import com.durbo.simData.Location.Location;
 import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.attributes.Attribute;
-import com.durbo.simData.layout.Layout;
+import com.durbo.simData.Track.Layout;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
@@ -46,6 +47,7 @@ abstract public class SimData {
             case "String" -> String.class;
             case "Track" -> Track.class;
             case "Layout" -> Layout.class;
+            case "Location" -> Location.class;
             default -> throw new RuntimeException("ObjectData.stringToObject() - type not found");
         };
     }

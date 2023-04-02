@@ -24,13 +24,14 @@ public class ObjectServiceTest {
 
     ObjectDataFactory<Track> trackFactory = new ObjectDataFactory<>();
 
-    Track track = new Track("Test", "Test Country", 0.0, 0.0, new ArrayList<>());
+    Track track = new Track();
     ObjectData trackObj = trackFactory.create(track);
 
 
     @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
+        track.setName("Test");
 
         trackObj = trackFactory.create(track);
     }
@@ -45,9 +46,7 @@ public class ObjectServiceTest {
         Object track = tracks.get(0);
         Track track1 = (Track) track;
         //TODO: add name
-        assert(track1.getCountry().equals("Test Country"));
-        assert(track1.getLatitude() == 0.0);
-        assert(track1.getLongitude() == 0.0);
+        assert(track1.getName().equals("Test"));
     }
 
     @Test
@@ -58,9 +57,6 @@ public class ObjectServiceTest {
         Track track = (Track) trackService.getBy("Track", "name", "Test").get(0);
 
         assert(track.getName().equals("Test"));
-        assert(track.getCountry().equals("Test Country"));
-        assert(track.getLatitude() == 0.0);
-        assert(track.getLongitude() == 0.0);
     }
 
 

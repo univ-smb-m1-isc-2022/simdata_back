@@ -29,7 +29,7 @@ public class ObjectDataTest {
 
     @Test
     public void testGetValue(){
-        Track track = new Track("test", "test", 0, 0, new ArrayList<>());
+        Track track = new Track();
         ObjectData objectData = new ObjectDataFactory<Track>().create(track);
         Object obj = objectData.getValue();
         assert obj instanceof Track;

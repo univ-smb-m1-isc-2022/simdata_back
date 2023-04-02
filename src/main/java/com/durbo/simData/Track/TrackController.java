@@ -37,15 +37,22 @@ public class TrackController {
         return (Track) trackService.getBy("Track","name", name).get(0);
     }
 
-    @GetMapping("/tracks/region/{value}")
-    public ArrayList<Object> getTracksByRegion(@PathVariable String value) throws MalformedURLException {
-        log.info("Getting tracks by region");
-        ArrayList<Country> countriesOfRegion = countryService.getCountriesByRegion(value);
-        ArrayList<Object> tracks = new ArrayList<>();
-        for(Country country : countriesOfRegion) {
+    @GetMapping("/tracks/location/{zone}/{value}")
+    public ArrayList<Object> getTracksByZone(@PathVariable String zone ,@PathVariable String value) throws MalformedURLException {
+        log.info("Getting tracks by zone");
+        /*ArrayList<Object> tracks = new ArrayList<>();
+        for(Country country : countriesOfZone) {
             tracks.addAll(trackService.getBy("Track", "country", country.getName()));
+        }*/
+        ArrayList<Object> tracks = this.trackService.getAll("Track");
+        ArrayList<Object> result = new ArrayList<>();
+        for (Object o : tracks) {
+            Track track = (Track) o;
+            if (track.getLocation().getZone(zone).equals(value)) {
+                result.add(track);
+            }
         }
-        return tracks;
+        return result;
     }
 
     @GetMapping("/tracks/{attribute}/{value}")
