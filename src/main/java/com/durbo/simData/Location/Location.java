@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Location {
+    public Coordinates coordinates;
     public String city;
     public String country;
     public String region;

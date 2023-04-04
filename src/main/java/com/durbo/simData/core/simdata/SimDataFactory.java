@@ -1,5 +1,6 @@
 package com.durbo.simData.core.simdata;
 
+import com.durbo.simData.Location.Coordinates;
 import com.durbo.simData.Location.Location;
 import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.subdata.DoubleData;
@@ -20,6 +21,7 @@ public class SimDataFactory {
             case "Track" -> new ObjectDataFactory<Track>().create((Track) value);
             case "Layout" -> new ObjectDataFactory<Layout>().create((Layout) value);
             case "Location" -> new ObjectDataFactory<Location>().create((Location) value);
+            case "Coordinates" -> new ObjectDataFactory<Coordinates>().create((Coordinates) value);
             default -> null;
         };
     }

@@ -1,5 +1,6 @@
 package com.durbo.simData.core.simdata;
 
+import com.durbo.simData.Location.Coordinates;
 import com.durbo.simData.Location.Location;
 import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.attributes.Attribute;
@@ -48,6 +49,7 @@ abstract public class SimData {
             case "Track" -> Track.class;
             case "Layout" -> Layout.class;
             case "Location" -> Location.class;
+            case "Coordinates" -> Coordinates.class;
             default -> throw new RuntimeException("ObjectData.stringToObject() - type not found");
         };
     }
