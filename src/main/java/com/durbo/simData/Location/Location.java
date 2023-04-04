@@ -10,6 +10,7 @@ public class Location {
     public String region;
 
     public Location() {
+        this.coordinates = new Coordinates();
         this.city = "";
         this.country = "";
         this.region = "";
