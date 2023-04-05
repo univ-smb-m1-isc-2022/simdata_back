@@ -15,9 +15,9 @@ public class Track {
     public ArrayList<Layout> layouts;
 
     public Track() {
-        super();
-        this.layouts = new ArrayList<>();
+        this.name = "";
         this.location = new Location();
         this.capacity = 0;
+        this.layouts = new ArrayList<Layout>();
     }
 }

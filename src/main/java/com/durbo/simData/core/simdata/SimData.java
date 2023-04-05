@@ -8,6 +8,7 @@ import com.durbo.simData.Track.Layout;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @lombok.Data
 //this class have Column annotation, but it is not used
@@ -25,6 +26,7 @@ abstract public class SimData {
     @Column
     private String type;
 
+    @ToString.Exclude
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "attribute_id")
