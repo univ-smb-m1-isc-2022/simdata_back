@@ -37,6 +37,12 @@ public class TrackController {
         return (Track) trackService.getBy("Track","name", name).get(0);
     }
 
+    @GetMapping("/tracks/{name}/id")
+    public Long getTrackId(@PathVariable String name) {
+        log.info("Getting track id");
+        return trackService.getId("Track", name);
+    }
+
     @GetMapping("/tracks/location/{zone}/{value}")
     public ArrayList<Object> getTracksByZone(@PathVariable String zone ,@PathVariable String value) throws MalformedURLException {
         log.info("Getting tracks by zone");

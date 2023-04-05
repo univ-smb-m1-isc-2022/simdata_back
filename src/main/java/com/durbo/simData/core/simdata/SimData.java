@@ -5,6 +5,7 @@ import com.durbo.simData.Location.Location;
 import com.durbo.simData.Track.Track;
 import com.durbo.simData.core.attributes.Attribute;
 import com.durbo.simData.Track.Layout;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
@@ -24,6 +25,7 @@ abstract public class SimData {
     @Column
     private String type;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "attribute_id")
     private Attribute attribute;

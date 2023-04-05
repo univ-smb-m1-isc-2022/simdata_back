@@ -2,6 +2,7 @@ package com.durbo.simData.core.object;
 
 import com.durbo.simData.core.simdata.SimData;
 import com.durbo.simData.core.attributes.Attribute;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 @PrimaryKeyJoinColumn(name = "SD_id")
 public class ObjectData extends SimData {
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "objectData", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attribute> attributes;
 

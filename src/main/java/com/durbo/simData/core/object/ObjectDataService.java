@@ -56,4 +56,12 @@ public class ObjectDataService<T> {
         objs.forEach(simData -> values.add(simData.getValue()));
         return values;
     }
+
+    public Long getId(String type, String name) {
+        return objectDataRepository.findBy(type, "name", name).get(0).getId();
+    }
+
+    public ObjectData getObject(Long id) {
+        return objectDataRepository.findById(id).get();
+    }
 }

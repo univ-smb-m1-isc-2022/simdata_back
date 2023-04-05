@@ -1,7 +1,9 @@
 package com.durbo.simData.Track;
 
 import com.durbo.simData.Location.Location;
+import com.durbo.simData.SimClass;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 
@@ -13,8 +15,8 @@ public class Track {
     public ArrayList<Layout> layouts;
 
     public Track() {
+        super();
         this.layouts = new ArrayList<>();
-        this.name = "";
         this.location = new Location();
         this.capacity = 0;
     }

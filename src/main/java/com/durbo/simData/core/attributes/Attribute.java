@@ -1,6 +1,9 @@
 package com.durbo.simData.core.attributes;
 import com.durbo.simData.core.object.ObjectData;
 import com.durbo.simData.core.simdata.SimData;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,12 +29,14 @@ public class Attribute{
     @Column
     private String type;
 
+
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "object_id")
     private ObjectData objectData;
     //TODO: link not working properly
 
-    //list of datas that are associated with this attribute
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "attribute",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SimData> datas;
 
@@ -94,9 +99,5 @@ public class Attribute{
                 }
             }
         };
-    }
-
-    public String toString(){
-        return this.name + " : " + this.getValue();
     }
 }
