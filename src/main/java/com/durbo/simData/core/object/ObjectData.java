@@ -1,5 +1,6 @@
 package com.durbo.simData.core.object;
 
+import com.durbo.simData.User.User;
 import com.durbo.simData.core.simdata.SimData;
 import com.durbo.simData.core.attributes.Attribute;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -68,5 +69,15 @@ public class ObjectData extends SimData {
             }
         });
         return finalObject;
+    }
+
+    @Override
+    public void setCreator(User creator) {
+        super.setCreator(creator);
+        for (Attribute attribute : attributes) {
+            for (SimData simData : attribute.getDatas()) {
+                simData.setCreator(creator);
+            }
+        }
     }
 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Layout {
     public String name;
     public Integer grade;
-    public ArrayList<String> tags;
-    public ArrayList<String> surface;
+    //public ArrayList<String> tags;
+    //public ArrayList<String> surface;
     public double length;
     public Integer turns;
     public Integer constructionYear;

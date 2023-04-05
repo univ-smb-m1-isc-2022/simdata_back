@@ -3,9 +3,12 @@ package com.durbo.simData.core.simdata;
 import com.durbo.simData.Location.Coordinates;
 import com.durbo.simData.Location.Location;
 import com.durbo.simData.Track.Track;
+import com.durbo.simData.User.User;
 import com.durbo.simData.core.attributes.Attribute;
 import com.durbo.simData.Track.Layout;
+import com.durbo.simData.core.metadata.MetaData;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
@@ -32,12 +35,28 @@ abstract public class SimData {
     @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private MetaData metaData;
+
     public SimData() {
         this.type = "NULL";
     }
 
-    public SimData(String type) {
+    public SimData(String type)
+    {
         this.type = type;
+        this.metaData = new MetaData();
+    }
+
+    public void setCreator(User creator)
+    {
+        this.metaData.setCreator(creator);
+    }
+
+    public void setValid(Boolean valid)
+    {
+        this.metaData.setValid(valid);
     }
 
     public SimData(String type, Attribute attribute) {

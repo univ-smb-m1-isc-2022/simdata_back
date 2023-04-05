@@ -1,17 +1,14 @@
 package com.durbo.simData.Track;
 
+import com.durbo.simData.User.User;
+import com.durbo.simData.authentification.TokenService;
 import com.durbo.simData.core.object.ObjectDataService;
-import com.durbo.simData.country.Country;
 import com.durbo.simData.country.CountryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 
 @Slf4j
@@ -19,8 +16,16 @@ import java.util.ArrayList;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TrackController {
 
+    static class MyTest{
+        public Track track;
+        public String token;
+    }
+
     @Autowired
     private ObjectDataService<Track> trackService;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Autowired
     private CountryService countryService;
@@ -68,9 +73,13 @@ public class TrackController {
     }
 
     @PostMapping("/track")
-    public Track createTrack(@RequestBody Track track) {
+    public Track createTrack(@RequestBody MyTest obj) {
         log.info("Creating track");
-        return trackService.create(track);
+
+        User user = tokenService.getUserFromToken(obj.token);
+        //check if token is valid
+        //check if user has permission to create track
+        return trackService.create(obj.track,user);
     }
 
 }
