@@ -28,4 +28,9 @@ public interface ObjectDataRepository extends CrudRepository<ObjectData, Long> {
         }
         return found;
     }
+
+    default void deleteBy(String type, String name, String name1){
+        ArrayList<ObjectData> objectDatas = this.findBy(type, name, name1);
+        this.deleteAll(objectDatas);
+    }
 }

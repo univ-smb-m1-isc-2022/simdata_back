@@ -3,7 +3,6 @@ package com.durbo.simData.Track;
 import com.durbo.simData.User.User;
 import com.durbo.simData.authentification.TokenService;
 import com.durbo.simData.core.object.ObjectDataService;
-import com.durbo.simData.country.CountryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +25,6 @@ public class TrackController {
 
     @Autowired
     private TokenService tokenService;
-
-    @Autowired
-    private CountryService countryService;
 
     @GetMapping("/tracks")
     public ArrayList<Object> getTracks() {
@@ -80,6 +76,15 @@ public class TrackController {
         //check if token is valid
         //check if user has permission to create track
         return trackService.create(obj.track,user);
+    }
+
+    //remove track
+    @DeleteMapping("/track/{name}")
+    public void deleteTrack(@PathVariable String name) {
+        log.info("Deleting track");
+        //check if token is valid
+        //check if user has permission to delete track
+        trackService.delete("Track",name);
     }
 
 }

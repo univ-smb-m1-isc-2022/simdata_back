@@ -1,9 +1,7 @@
 package com.durbo.simData.Track;
 
 import com.durbo.simData.Location.Location;
-import com.durbo.simData.SimClass;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 

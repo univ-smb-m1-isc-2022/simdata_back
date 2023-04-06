@@ -66,4 +66,8 @@ public class ObjectDataService<T> {
     public ObjectData getObject(Long id) {
         return objectDataRepository.findById(id).get();
     }
+
+    public void delete(String type, String name) {
+        objectDataRepository.deleteBy(type, "name", name);
+    }
 }

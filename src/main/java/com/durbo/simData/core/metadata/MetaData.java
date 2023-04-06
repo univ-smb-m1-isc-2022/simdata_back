@@ -1,12 +1,8 @@
 package com.durbo.simData.core.metadata;
 
 import com.durbo.simData.User.User;
-import com.durbo.simData.core.simdata.SimData;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.ToString;
 
 import java.util.Date;
 
