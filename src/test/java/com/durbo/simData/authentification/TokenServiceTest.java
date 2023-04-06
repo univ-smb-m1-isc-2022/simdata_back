@@ -1,33 +1,34 @@
 package com.durbo.simData.authentification;
 
+
 import com.durbo.simData.User.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = {TokenService.class, User.class})
+@SpringBootTest
 public class TokenServiceTest {
 
+    TokenService tokenService;
+    User user;
 
-
-    @Test
-    public void testTokenService() {
-        TokenService tokenService = new TokenService();
-        assert tokenService != null;
+    @BeforeEach
+    public void setUp() {
+        tokenService = new TokenService();
+        user = new User();
+        user.setUsername("Test");
+        user.setEmail("test@mail.com");
+        user.setPassword("test");
     }
 
     @Test
     public void testGenerateToken() {
-        TokenService tokenService = new TokenService();
-        User user = new User();
         assert tokenService.generateToken(user) != null;
     }
 
     @Test
     public void testValidateToken() {
-        TokenService tokenService = new TokenService();
-        User user = new User();
         String token = tokenService.generateToken(user);
         assert tokenService.validateToken(token, user);
     }
-
 }
