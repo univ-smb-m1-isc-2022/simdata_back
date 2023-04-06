@@ -3,7 +3,7 @@ package com.durbo.simData.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = User.class)
 public class UserTests {
 
         @Test

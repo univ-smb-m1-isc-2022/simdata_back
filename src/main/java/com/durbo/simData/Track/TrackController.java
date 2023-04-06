@@ -3,6 +3,7 @@ package com.durbo.simData.Track;
 import com.durbo.simData.User.User;
 import com.durbo.simData.authentification.TokenService;
 import com.durbo.simData.core.object.ObjectDataService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequiredArgsConstructor
 public class TrackController {
 
     static class MyTest{
@@ -20,11 +22,8 @@ public class TrackController {
         public String token;
     }
 
-    @Autowired
-    private ObjectDataService<Track> trackService;
-
-    @Autowired
-    private TokenService tokenService;
+    private final ObjectDataService<Track> trackService;
+    private final TokenService tokenService;
 
     @GetMapping("/tracks")
     public ArrayList<Object> getTracks() {
