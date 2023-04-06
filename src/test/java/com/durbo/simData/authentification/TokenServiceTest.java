@@ -4,7 +4,7 @@ import com.durbo.simData.User.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = {TokenService.class, User.class})
 public class TokenServiceTest {
 
 
